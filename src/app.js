@@ -54,7 +54,7 @@
     detailsToken: 0,
     firmware: new Map(),      // product identifier -> {status, data, error}
     confirm: { backup: false, findmy: false, override: false },
-    update: { checking: false, result: null, error: null },
+    update: { checking: false, result: null, error: null, installedVersion: null },
     pairing: false,
     pairMsg: null,            // {ok, text}
     restore: null,            // see startRestore()
@@ -532,7 +532,7 @@
           ? h('ol', null, how.steps.map((s) => h('li', null, s)))
           : [h('p', null, how.intro), h('pre', { class: 'cmd' }, how.cmd), how.after ? h('p', null, how.after) : null]),
       h('div', { class: 'section' },
-        h('h3', null, 'Flasher updates'),
+        h('h3', null, `Flasher updates${state.update.installedVersion ? ' · v' + state.update.installedVersion : ''}`),
         h('p', null, 'Check for a newer published version. Updates are downloaded and installed manually; nothing is installed automatically.'),
         h('div', { class: 'row' },
           h('button', { class: 'btn btn-quiet', type: 'button', disabled: state.update.checking, onclick: checkAppUpdates },
@@ -616,6 +616,8 @@
     await api.listen('restore-log', (e) => onRestoreLog(e.payload));
     await api.listen('restore-done', (e) => onRestoreDone(e.payload));
 
+    try { state.update.installedVersion = await api.invoke('app_version'); }
+    catch (e) { console.warn('Could not read app version:', e); }
     await loadTools();
     if (!state.tools.ready) state.view = 'setup';
     renderAll();
