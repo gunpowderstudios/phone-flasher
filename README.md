@@ -8,7 +8,7 @@ Plug in an old iPhone or iPad, see whether it's safe to give away, wipe it, and 
 
 - **Detects** devices as you plug them in: switched on, in Recovery mode, or in DFU mode.
 - **Reads** model, chip, iOS version and serial number.
-- **Checks giveaway readiness**, above all Find My / Activation Lock. A device still tied to your Apple ID is a brick for whoever gets it. The app stamps each device READY, CHECK or HOLD and explains why.
+- **Checks giveaway readiness**, above all Find My / Activation Lock. A device still tied to your Apple ID is a brick for whoever gets it. The app shows CHECK or HOLD before erasure: technical checks cannot prove Activation Lock is absent.
 - **Wipes and restores** to the newest iOS Apple still signs for that model (looked up live from ipsw.me), with a progress bar and a log.
 - **Points elsewhere** for Android phones, old Macs and the like (Other devices tab).
 
@@ -22,13 +22,17 @@ Flasher drives the open-source [libimobiledevice](https://libimobiledevice.org) 
 
 | System | Install |
 | --- | --- |
-| macOS | `brew install libimobiledevice libirecovery idevicerestore` |
+| macOS | Install detection tools with `brew install libimobiledevice libirecovery`. **`idevicerestore` is not in standard Homebrew**; it must be installed separately from the official [idevicerestore project](https://github.com/libimobiledevice/idevicerestore#building). Do not confuse it with `ideviceinstaller`. |
 | Debian / Ubuntu | `sudo apt install usbmuxd libimobiledevice-utils idevicerestore` |
 | Windows | Install iTunes or the Apple Devices app (for the USB driver), put Windows builds of libimobiledevice and idevicerestore in one folder, and add it to `PATH` or set `FLASHER_TOOLS_DIR` to it. |
 
 If `irecovery` is missing on Linux, search your package manager for `libirecovery`. Needed tools: `idevice_id`, `ideviceinfo`, `idevicerestore`. Optional: `idevicepair` (the Pair button) and `irecovery` (finding devices in Recovery/DFU).
 
 Windows is the least smooth route. Bundling the tools into the app is the main thing on the to-do list.
+
+**macOS restore setup:** Follow the official idevicerestore macOS source-build instructions and inspect any third-party build scripts before executing them. Detection and inspection work without this tool; wiping/restoring does not. Reopen Flasher and use Setup → Check again to verify tool locations. The current macOS installer does not bundle these dependencies.
+
+**Safety:** CHECK means only that the technical checks completed. Sign out of Find My in device Settings and independently verify the device is removed from your Apple account. After restoring, confirm that the Hello setup does not request the previous owner's Apple ID before giving the device away. A successful process exit alone is not proof of activation readiness.
 
 ## Using it
 
