@@ -1,6 +1,6 @@
 [package]
 name = "flasher"
-version = "0.1.0"
+version = "0.2.0"
 edition = "2021"
 description = "Plug in an old iPhone or iPad, check it's safe to give away, wipe it and install the newest iOS it supports."
 
