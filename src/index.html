@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Flasher</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Roughens the stamp's edges a little, like ink on paper. -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <filter id="ink" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="7" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="1.6"/>
+    </filter>
+  </svg>
+
+  <div id="demo-ribbon" class="ribbon" hidden>
+    Demo mode: these are sample devices and nothing is connected. Use the desktop app to work with real ones.
+  </div>
+
+  <div class="app">
+    <aside class="rail" aria-label="Devices">
+      <h1 class="brand">Flasher</h1>
+      <div id="device-list" class="device-list"></div>
+      <nav class="rail-nav" aria-label="Sections">
+        <button type="button" class="nav-btn" data-view="devices">Devices</button>
+        <button type="button" class="nav-btn" data-view="setup">Setup<span id="setup-dot" class="dot" hidden></span></button>
+        <button type="button" class="nav-btn" data-view="other">Other devices</button>
+      </nav>
+    </aside>
+    <main id="main" tabindex="-1"></main>
+  </div>
+
+  <script src="mock.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

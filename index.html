@@ -1,1 +1,38 @@
-
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Flasher</title>
+  <meta name="description" content="Plug in an old iPhone or iPad, check it is safe to give away, wipe it and install the newest iOS it can run.">
+  <style>
+    :root { --paper:#e7eaee; --ink:#1b2430; --muted:#566273; --cyan:#00779e; }
+    @media (prefers-color-scheme: dark) {
+      :root { --paper:#151a21; --ink:#e7ecf1; --muted:#9aa6b4; --cyan:#3cb8e6; }
+    }
+    * { box-sizing: border-box; }
+    body { margin:0; min-height:100vh; display:grid; place-items:center; padding:32px 20px;
+      background:var(--paper); color:var(--ink); font:16px/1.55 "Avenir Next","Segoe UI Variable Text","Segoe UI",system-ui,sans-serif; }
+    main { max-width:34rem; }
+    h1 { margin:0 0 12px; font-size:40px; line-height:1.1; font-weight:800; letter-spacing:-0.015em; }
+    p { margin:0 0 14px; }
+    .muted { color:var(--muted); }
+    .links { display:flex; flex-wrap:wrap; gap:10px; margin-top:22px; }
+    a.btn { padding:10px 16px; border:1px solid var(--ink); border-radius:3px; font-weight:650; text-decoration:none; color:inherit; }
+    a.primary { background:var(--ink); color:var(--paper); }
+    a:focus-visible { outline:3px solid var(--cyan); outline-offset:2px; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Flasher</h1>
+    <p>Plug in an old iPhone or iPad, check it is safe to give away, wipe it, and install the newest iOS Apple still allows for it.</p>
+    <p class="muted">A desktop app for clearing a drawer of working-but-stuck devices. It checks Find My and Activation Lock first, so what you give away doesn't turn into a brick.</p>
+    <div class="links">
+      <a class="btn primary" href="https://github.com/gunpowderstudios/phone-flasher/releases">Download</a>
+      <a class="btn" href="src/index.html">Try the interface with sample devices</a>
+      <a class="btn" href="https://github.com/gunpowderstudios/phone-flasher#readme">Read the README</a>
+    </div>
+  </main>
+</body>
+</html>

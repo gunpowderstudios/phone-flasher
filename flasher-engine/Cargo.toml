@@ -1,0 +1,10 @@
+[package]
+name = "flasher-engine"
+version = "0.1.0"
+edition = "2021"
+description = "Runs the libimobiledevice tools for Flasher: scan, inspect, pair, restore. No GUI code, so it can be tested with fake tools."
+
+[dependencies]
+flasher-core = { path = "../flasher-core" }
+serde = { version = "1", features = ["derive"] }
+ureq = "2"

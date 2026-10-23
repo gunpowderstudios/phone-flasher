@@ -1,0 +1,14 @@
+[package]
+name = "flasher"
+version = "0.1.0"
+edition = "2021"
+description = "Plug in an old iPhone or iPad, check it's safe to give away, wipe it and install the newest iOS it supports."
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }
+serde = { version = "1", features = ["derive"] }
+flasher-core = { path = "../flasher-core" }
+flasher-engine = { path = "../flasher-engine" }
