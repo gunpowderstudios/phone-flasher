@@ -34,6 +34,10 @@ Windows is the least smooth route. Bundling the tools into the app is the main t
 
 **Safety:** CHECK means only that the technical checks completed. Sign out of Find My in device Settings and independently verify the device is removed from your Apple account. After restoring, confirm that the Hello setup does not request the previous owner's Apple ID before giving the device away. A successful process exit alone is not proof of activation readiness.
 
+## Updating Flasher
+
+In **Setup → Flasher updates**, select **Check for updates** to compare the installed version with the latest *published* GitHub release, then **Open downloads** to install it manually. GitHub draft releases are not visible to the public updates endpoint and must be published with a proper semantic version tag (for example `v0.2.0`). This is **not** an automatic/self-installing updater and does not download or execute unverified code.
+
 ## Using it
 
 1. Plug the device in. If it asks, unlock it and tap **Trust**, then press **Pair** in Flasher.
