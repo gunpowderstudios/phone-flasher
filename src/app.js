@@ -256,7 +256,7 @@
     if (!d) return null;
     if (d.card.mode === 'normal' && !d.card.paired) return { word: 'TRUST', tone: 'yellow', label: d.readiness.summary };
     switch (d.readiness.verdict) {
-      case 'ready': return { word: 'READY', tone: 'cyan', label: d.readiness.summary };
+      case 'ready': return { word: 'CHECK', tone: 'yellow', label: 'Technical checks passed. Confirm Find My manually before erasing; verify Activation Lock is absent before giving away.' };
       case 'blocked': return { word: 'HOLD', tone: 'magenta', label: d.readiness.summary };
       default: return { word: 'CHECK', tone: 'yellow', label: d.readiness.summary };
     }
@@ -457,7 +457,7 @@
           h('h2', null, title),
           card.name ? h('p', { class: 'sub' }, card.model.name) : null),
         stampEl()),
-      h('p', { class: 'summary' }, ownRestore ? stampFor().label : det.readiness.summary),
+      h('p', { class: 'summary' }, ownRestore ? stampFor().label : (det.readiness.verdict === 'ready' ? 'Technical checks passed. Find My and giveaway readiness still require manual verification.' : det.readiness.summary)),
       ownRestore ? null : checksEl(det.readiness),
       ownRestore ? progressEl() : (card.mode === 'normal' && !card.paired ? pairEl(card) : wipeEl(det, fw)),
       h('div', { class: 'section' }, h('h3', null, 'About this device'), factsEl(card, fw), bootromNote(card)));
@@ -474,7 +474,11 @@
   }
 
   const INSTALL = {
-    macos: { intro: 'Install the tools with Homebrew:', cmd: 'brew install libimobiledevice libirecovery idevicerestore' },
+    macos: {
+      intro: 'For detection, install the available Homebrew tools:',
+      cmd: '/opt/homebrew/bin/brew install libimobiledevice libirecovery',
+      after: 'idevicerestore is NOT in standard Homebrew. Restoring remains unavailable until you separately build/install it using the official libimobiledevice/idevicerestore instructions. Check the project README. Never substitute ideviceinstaller: that is a different tool.',
+    },
     linux: {
       intro: 'On Debian or Ubuntu, install the tools and the USB service:',
       cmd: 'sudo apt install usbmuxd libimobiledevice-utils idevicerestore',
