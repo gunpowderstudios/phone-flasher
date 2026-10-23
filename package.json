@@ -1,6 +1,6 @@
 {
   "name": "flasher",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "description": "Check, wipe and restore old iPhones and iPads so they can be given away.",
   "scripts": {
