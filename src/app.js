@@ -54,6 +54,7 @@
     detailsToken: 0,
     firmware: new Map(),      // product identifier -> {status, data, error}
     confirm: { backup: false, findmy: false, override: false },
+    update: { checking: false, result: null, error: null },
     pairing: false,
     pairMsg: null,            // {ok, text}
     restore: null,            // see startRestore()
@@ -493,6 +494,23 @@
     },
   };
 
+  async function checkAppUpdates() {
+    state.update = { checking: true, result: null, error: null };
+    renderMain();
+    try {
+      state.update.result = await api.invoke('check_app_update');
+    } catch (e) {
+      state.update.error = errText(e);
+    }
+    state.update.checking = false;
+    renderMain();
+  }
+
+  async function openRelease() {
+    try { await api.invoke('open_release_page'); }
+    catch (e) { state.update.error = errText(e); renderMain(); }
+  }
+
   function setupView() {
     const t = state.tools;
     if (!t) return h('div', { class: 'view' }, h('p', { class: 'lede' }, 'Checking for tools...'));
@@ -513,6 +531,15 @@
         how.steps
           ? h('ol', null, how.steps.map((s) => h('li', null, s)))
           : [h('p', null, how.intro), h('pre', { class: 'cmd' }, how.cmd), how.after ? h('p', null, how.after) : null]),
+      h('div', { class: 'section' },
+        h('h3', null, 'Flasher updates'),
+        h('p', null, 'Check for a newer published version. Updates are downloaded and installed manually; nothing is installed automatically.'),
+        h('div', { class: 'row' },
+          h('button', { class: 'btn btn-quiet', type: 'button', disabled: state.update.checking, onclick: checkAppUpdates },
+            state.update.checking ? 'Checking...' : 'Check for updates'),
+          h('button', { class: 'btn btn-quiet', type: 'button', onclick: openRelease }, 'Open downloads')),
+        state.update.error ? h('p', { class: 'muted' }, state.update.error) : null,
+        state.update.result ? h('p', null, state.update.result.message) : null),
       h('div', { class: 'row' }, h('button', { class: 'btn btn-quiet', type: 'button', onclick: async () => {
         await loadTools();
         if (state.tools.ready) setView('devices'); else renderMain();
