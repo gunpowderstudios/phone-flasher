@@ -83,6 +83,11 @@ struct GithubRelease { tag_name: String, html_url: String }
 struct UpdateReport { message: String }
 
 #[tauri::command]
+fn app_version(app: AppHandle) -> String {
+    app.package_info().version.to_string()
+}
+
+#[tauri::command]
 async fn check_app_update(app: AppHandle) -> Result<UpdateReport, String> {
     let installed = app.package_info().version.to_string();
     blocking(move || {
@@ -136,6 +141,7 @@ fn main() {
             start_restore,
             cancel_restore,
             restore_running,
+            app_version,
             check_app_update,
             open_release_page,
         ])
